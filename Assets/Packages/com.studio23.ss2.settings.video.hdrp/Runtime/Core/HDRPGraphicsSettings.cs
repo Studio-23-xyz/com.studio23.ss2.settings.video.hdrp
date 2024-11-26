@@ -3,73 +3,64 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.HighDefinition;
 
-
-public class HDRPGraphicsSettings : GraphicsConfigurationBase
+namespace Studio23.SS2.Settings.Video.HDRP.Core
 {
-    private Bloom _bloom;
-    private ColorAdjustments _colorAdjustments;
-    private ScreenSpaceAmbientOcclusion _ambientOcclusion;
-    private float _currentRenderScale;
-
-    public override void Initialize(Volume currentVolume)
+    public class HDRPGraphicsSettings : GraphicsConfigurationBase
     {
-        CurrentVolumeProfile = currentVolume.profile;
-        CurrentVolumeProfile.TryGet(typeof(Bloom), out _bloom);
-        CurrentVolumeProfile.TryGet(typeof(ColorAdjustments), out _colorAdjustments);
-        GetAmbientOcclusion();
-    }
+        private Bloom _bloom;
+        private ColorAdjustments _colorAdjustments;
+        private ScreenSpaceAmbientOcclusion _ambientOcclusion;
 
-    public override void SetBloomState(bool state)
-    {
-        if (_bloom == null) return;
-        _bloom.active = state;
-    }
 
-    public override void SetAmbientOcclusionState(bool state)
-    {
-        if (_ambientOcclusion == null) return;
-        _ambientOcclusion.active = state;
-    }
 
-    public override void SetBrightness(float brightnessValue)
-    {
-        //if (_colorAdjustments == null) return;
-        //_colorAdjustments.postExposure.value = brightnessValue;
-    }
+        
 
-    public override void SetRenderScale(float scaleValue)
-    {
-        DynamicResolutionHandler.SetDynamicResScaler(
-            () => scaleValue,
-            DynamicResScalePolicyType.ReturnsPercentage
-        );
-
-        _currentRenderScale = scaleValue;
-    }
-
-    public override void UpdatePipelineRenderAsset()
-    {
-        float renderScaleValue = _currentRenderScale;
-        bool isAmbientOcclusion = _ambientOcclusion.active;
-        UpdateAmbientOcclusion(isAmbientOcclusion);
-        SetRenderScale(renderScaleValue);
-    }
-
-    private void UpdateAmbientOcclusion(bool state)
-    {
-        GetAmbientOcclusion();
-        SetAmbientOcclusionState(state);
-    }
-
-    private void GetAmbientOcclusion()
-    {
-        if (CurrentVolumeProfile != null && CurrentVolumeProfile.TryGet(out _ambientOcclusion))
+        public override void Initialize(Volume currentVolume)
         {
-            Debug.Log("Ambient Occlusion found in Volume Profile.");
+            CurrentVolumeProfile = currentVolume.profile;
+            CurrentVolumeProfile.TryGet(typeof(Bloom), out _bloom);
+            CurrentVolumeProfile.TryGet(typeof(ColorAdjustments), out _colorAdjustments);
+            CurrentVolumeProfile.TryGet(out _ambientOcclusion);
+
+            SetRenderScale(_renderScale);
+            SetBloomState(_bloomEnabled);
+            SetAmbientOcclusionState(_ambientOcclusion);
         }
-        else
+
+        public override void SetBloomState(bool state)
         {
-            Debug.LogError("No Ambient Occlusion override found in the Volume Profile.");
+            if (_bloom == null) return;
+            _bloom.active = state;
+            _bloomEnabled = state;
+        }
+
+        public override void SetAmbientOcclusionState(bool state)
+        {
+            if (_ambientOcclusion == null) return;
+            _ambientOcclusion.active = state;
+            _ambientOccusionEnabled = state;
+        }
+
+        public override void SetBrightness(float brightnessValue)
+        {
+            //if (_colorAdjustments == null) return;
+            //_colorAdjustments.postExposure.value = brightnessValue;
+        }
+
+        public override void SetRenderScale(float scaleValue)
+        {
+            DynamicResolutionHandler.SetDynamicResScaler(
+                () => scaleValue,
+                DynamicResScalePolicyType.ReturnsPercentage
+            );
+
+            _renderScale = scaleValue;
+        }
+
+        public override void UpdatePipelineRenderAsset()
+        {
+
         }
     }
 }
+

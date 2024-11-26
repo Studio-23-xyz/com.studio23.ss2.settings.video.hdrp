@@ -1,6 +1,6 @@
 {
   "name": "com.studio23.ss2.settings.video.hdrp",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "displayName": "Video Setting - HDRP",
   "description": "This is an video setting for HDRP. Used for in-game display and graphics settings.",
   "unity": "6000.0",
@@ -18,7 +18,7 @@
     }
   ],
   "dependencies": {
-    "com.studio23.ss2.settings.video": "1.0.4",
+    "com.studio23.ss2.settings.video": "1.0.11",
 	"com.unity.render-pipelines.high-definition": "17.0.3"
   },
   "samples": [

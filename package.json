@@ -1,0 +1,42 @@
+{
+  "name": "com.studio23.ss2.settings.video.hdrp",
+  "version": "1.0.0",
+  "displayName": "Video Setting - HDRP",
+  "description": "This is an video setting for HDRP. Used for in-game display and graphics settings.",
+  "unity": "6000.0",
+  "unityRelease": "25f1",
+  "documentationUrl": "https://studio-23-xyz.github.io/com.studio23.ss2.settings.video.hdrp/manual/",
+  "changelogUrl": "https://studio-23-xyz.github.io/com.studio23.ss2.settings.video.hdrp/changelog/CHANGELOG.html",
+  "licensesUrl": "https://studio-23-xyz.github.io/com.studio23.ss2.settings.video.hdrp/license/LICENSE.html",
+  "scopedRegistries": [
+    {
+      "name": "Studio 23",
+      "url": "https://package.openupm.com",
+      "scopes": [
+        "com.studio23.ss2.setings"
+      ]
+    }
+  ],
+  "dependencies": {
+    "com.studio23.ss2.settings.video": "1.0.4",
+	"com.unity.render-pipelines.high-definition": "17.0.3"
+  },
+  "samples": [
+    {
+      "displayName": "Example",
+      "description": "A small sample to demonstrate the abilities of the package.",
+      "path": "Samples~/Demo"
+    }
+  ],
+  "keywords": [
+    "HDRP",
+    "Video",
+    "Display",
+	"Setting"
+  ],
+  "author": {
+    "name": "Studio 23",
+    "email": "contact@studio-23.xyz",
+    "url": "https://studio-23.xyz"
+  }
+}
